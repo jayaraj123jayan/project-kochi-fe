@@ -10,7 +10,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   useEffect(() => {
     const fetchProfile = async () => {
-      const response = await axios.get(`${API_BASE_URL}/profile`, {
+      const response = await axios.get(`/profile`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProfile(response.data);

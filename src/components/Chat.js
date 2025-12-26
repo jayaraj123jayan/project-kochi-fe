@@ -61,7 +61,7 @@ const Chat = ({ selectedTrainer }) => {
       // Create or find conversation with the trainer
       const createConversationWithTrainer = async () => {
         try {
-          const response = await axios.post(`${API_BASE_URL}/conversations`, {
+          const response = await axios.post(`/conversations`, {
             participantId: selectedTrainer.userId || selectedTrainer.id
           }, {
             headers: { Authorization: `Bearer ${token}` }
@@ -79,7 +79,7 @@ const Chat = ({ selectedTrainer }) => {
   const fetchConversations = async () => {
     if (!token) return;
     try {
-      const response = await axios.get(`${API_BASE_URL}/conversations`, {
+      const response = await axios.get(`/conversations`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setConversations(response.data);
@@ -87,7 +87,7 @@ const Chat = ({ selectedTrainer }) => {
       const newMessagesMap = {};
       for (const conv of response.data) {
         try {
-          const msgResponse = await axios.get(`${API_BASE_URL}/conversations/${conv.id}/messages`, {
+          const msgResponse = await axios.get(`/conversations/${conv.id}/messages`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           newMessagesMap[conv.id] = msgResponse.data;
@@ -117,7 +117,7 @@ const Chat = ({ selectedTrainer }) => {
     }
     // Otherwise, fetch
     try {
-      const response = await axios.get(`${API_BASE_URL}/conversations/${conversationId}/messages`, {
+      const response = await axios.get(`/conversations/${conversationId}/messages`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(response.data);
@@ -138,7 +138,7 @@ const Chat = ({ selectedTrainer }) => {
       return;
     }
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/search?q=${query}`, {
+      const response = await axios.get(`/users/search?q=${query}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSearchResults(response.data);
@@ -150,7 +150,7 @@ const Chat = ({ selectedTrainer }) => {
   const startConversation = async (participantId) => {
     if (!token) return;
     try {
-      const response = await axios.post(`${API_BASE_URL}/conversations`, { participantId }, {
+      const response = await axios.post(`/conversations`, { participantId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const conversationId = response.data.conversationId;

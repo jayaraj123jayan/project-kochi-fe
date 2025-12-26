@@ -19,7 +19,7 @@ const TenantPage = () => {
 
   React.useEffect(() => {
     if (user?.tenantId && token) {
-      axios.get(`${API_BASE_URL}/tenant`, {
+      axios.get(`/tenant`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {

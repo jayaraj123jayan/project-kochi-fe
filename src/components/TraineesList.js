@@ -16,7 +16,7 @@ const TraineesList = ({ setTabValue, setSelectedTrainerForChat }) => {
   useEffect(() => {
     const fetchTrainees = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/trainer/trainees`, {
+        const response = await axios.get(`/trainer/trainees`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         response && Array.isArray(response.data) && setTrainees(response.data);
@@ -30,7 +30,7 @@ const TraineesList = ({ setTabValue, setSelectedTrainerForChat }) => {
   const handleUpdatePlan = async (trainee) => {
     setSelectedTrainee(trainee);
     try {
-      const response = await axios.get(`${API_BASE_URL}/trainer/workouts/${trainee.id}`, {
+      const response = await axios.get(`/trainer/workouts/${trainee.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCurrentPlan(response.data);
@@ -43,7 +43,7 @@ const TraineesList = ({ setTabValue, setSelectedTrainerForChat }) => {
 
   const handleSavePlan = async () => {
     try {
-      await axios.put(`${API_BASE_URL}/trainer/workouts/${selectedTrainee.id}`, { plans: currentPlan }, {
+      await axios.put(`/trainer/workouts/${selectedTrainee.id}`, { plans: currentPlan }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPlanDialog(false);

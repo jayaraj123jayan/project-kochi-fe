@@ -50,7 +50,7 @@ const AdminDashboard = () => {
 
   const fetchTenants = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin/tenants`, {
+      const response = await axios.get(`/admin/tenants`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTenants(response.data);
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async (tenantId) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin/users/${tenantId}`, {
+      const response = await axios.get(`/admin/users/${tenantId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(response.data);
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
 
   const fetchAllUsers = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin/all-users`, {
+      const response = await axios.get(`/admin/all-users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       response.data && Array.isArray(response.data) && setAllUsers(response.data);
@@ -85,7 +85,7 @@ const AdminDashboard = () => {
   const handleCreateTenant = async () => {
     setLoading(true);
     try {
-      await axios.post(`${API_BASE_URL}/admin/tenants`, { name: tenantName }, {
+      await axios.post(`/admin/tenants`, { name: tenantName }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOpenTenantDialog(false);
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const tenantId = user.role === 'admin' ? userForm.tenantId : user.tenantId;
-      await axios.post(`${API_BASE_URL}/admin/users`, { ...userForm, tenantId }, {
+      await axios.post(`/admin/users`, { ...userForm, tenantId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOpenUserDialog(false);

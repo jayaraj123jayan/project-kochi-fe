@@ -23,7 +23,7 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/profile`, {
+        const response = await axios.get(`/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfile(response.data);
@@ -32,12 +32,12 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
         } else if (response.data.assignedTrainerId) {
           // Fetch assigned trainer
           try {
-            const trainerResponse = await axios.get(`${API_BASE_URL}/trainer`, {
+            const trainerResponse = await axios.get(`/trainer`, {
               headers: { Authorization: `Bearer ${token}` }
             });
             setAssignedTrainer(trainerResponse.data);
             // Fetch assigned plan
-            const planResponse = await axios.get(`${API_BASE_URL}/workouts`, {
+            const planResponse = await axios.get(`/workouts`, {
               headers: { Authorization: `Bearer ${token}` }
             });
             setAssignedPlan(planResponse.data);
@@ -58,7 +58,7 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
 
   const handleSaveProfile = async () => {
     try {
-      await axios.put(`${API_BASE_URL}/profile`, { goal, height: parseFloat(height), weight: parseFloat(weight) }, {
+      await axios.put(`/profile`, { goal, height: parseFloat(height), weight: parseFloat(weight) }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProfile({ ...profile, goal, height: parseFloat(height), weight: parseFloat(weight) });
@@ -71,7 +71,7 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
   const handleAssignTrainer = async () => {
     if (!selectedTrainer) return;
     try {
-      await axios.post(`${API_BASE_URL}/trainer`, { trainerId: selectedTrainer.id }, {
+      await axios.post(`/trainer`, { trainerId: selectedTrainer.id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setConfirmDialog(false);
@@ -87,7 +87,7 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
   const handleTrainerChoice = async (wantsTrainer) => {
     if (wantsTrainer) {
       try {
-        const response = await axios.get(`${API_BASE_URL}/trainers`, {
+        const response = await axios.get(`/trainers`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setTrainers(response.data);
@@ -98,12 +98,12 @@ const WorkoutPlans = ({ setTabValue, setSelectedTrainerForChat }) => {
     } else {
       // Fetch plan from API
       try {
-        const response = await axios.get(`${API_BASE_URL}/workout-plans?goal=${goal}`, {
+        const response = await axios.get(`/workout-plans?goal=${goal}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setPlan(response.data);
         // Save to DB
-        await axios.put(`${API_BASE_URL}/workouts`, { plans: response.data }, {
+        await axios.put(`/workouts`, { plans: response.data }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStep('plan');

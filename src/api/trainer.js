@@ -3,7 +3,7 @@ import { API_BASE_URL } from '../constants/api';
 
 export const getTrainer = async (token) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/trainer`, {
+    const response = await axios.get(`/trainer`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response.data;
@@ -14,7 +14,7 @@ export const getTrainer = async (token) => {
 
 export const assignTrainer = async (token, name) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/trainer`, { name }, {
+    const response = await axios.post(`/trainer`, { name }, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response.data;
@@ -25,7 +25,7 @@ export const assignTrainer = async (token, name) => {
 
 export const updateTrainer = async (token, instructions) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/trainer`, { instructions }, {
+    const response = await axios.put(`/trainer`, { instructions }, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response.data;
