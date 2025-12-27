@@ -127,7 +127,7 @@ const AdminDashboard = () => {
     <Container maxWidth="lg">
       <AppBar position="static">
         <Toolbar>
-          <HamburgerMenu />
+          <HamburgerMenu onTabChange={handleTabChange} currentTab={tabValue} tabs={[]}/>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Admin Dashboard
           </Typography>
